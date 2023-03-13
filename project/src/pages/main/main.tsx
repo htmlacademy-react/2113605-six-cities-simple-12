@@ -1,9 +1,9 @@
 import Card from '../../components/card/card';
-type MainPageProps = {
+type MainProps = {
   offersCount: number;
 };
 
-function MainPage({ offersCount }: MainPageProps): JSX.Element {
+function Main({ offersCount }: MainProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <main className="page__main page__main--index">
@@ -95,4 +95,4 @@ function MainPage({ offersCount }: MainPageProps): JSX.Element {
   );
 }
 
-export default MainPage;
+export default Main;

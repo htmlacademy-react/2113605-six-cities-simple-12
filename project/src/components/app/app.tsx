@@ -1,6 +1,6 @@
-import MainPage from '../../pages/main-page/main-page';
-import Login from '../../pages/login/login';
-import { default as Room } from '../../pages/property/property';
+import MainPage from '../../pages/main/main';
+import { default as LoginScreen } from '../../pages/login/login';
+import Property from '../../pages/property/property';
 import NotFound from '../../pages/not-found/not-found';
 import Layout from '../../components/layout/layout';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -10,19 +10,19 @@ type AppProps = {
 };
 
 enum Location {
-  main = '/',
-  login = '/login',
-  room = '/offer/',
+  Main = '/',
+  Login = '/login',
+  Room = '/offer/:id',
 }
 
 function App({ offersCount }: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={Location.main} element={<Layout />}>
+        <Route path={Location.Main} element={<Layout />}>
           <Route index element={<MainPage offersCount={offersCount} />} />
-          <Route path={Location.login} element={<Login />} />
-          <Route path={`${Location.room}:id`} element={<Room />} />
+          <Route path={Location.Login} element={<LoginScreen />} />
+          <Route path={Location.Room} element={<Property />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
