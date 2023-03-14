@@ -1,9 +1,11 @@
-import Card from '../../components/card/card';
+import { OffersPropsType } from '../../mocks/offers';
+import OfferList from '../../components/offer-list/offer-list';
+
 type MainProps = {
-  offersCount: number;
+  offers: OffersPropsType[];
 };
 
-function Main({ offersCount }: MainProps): JSX.Element {
+function Main({ offers }: MainProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <main className="page__main page__main--index">
@@ -49,7 +51,7 @@ function Main({ offersCount }: MainProps): JSX.Element {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">
-                {offersCount} places to stay in Amsterdam
+                {offers.length} places to stay in Amsterdam
               </b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
@@ -59,7 +61,7 @@ function Main({ offersCount }: MainProps): JSX.Element {
                     <use xlinkHref="#icon-arrow-select"></use>
                   </svg>
                 </span>
-                <ul className="places__options places__options--custom places__options--opened">
+                <ul className="places__options places__options--custom">
                   <li
                     className="places__option places__option--active"
                     tabIndex={0}
@@ -78,11 +80,7 @@ function Main({ offersCount }: MainProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
+                <OfferList offers={offers}/>
               </div>
             </section>
             <div className="cities__right-section">
