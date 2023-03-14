@@ -19,7 +19,7 @@ function App(): JSX.Element {
         <Route path={Location.Main} element={<Layout />}>
           <Route index element={<MainPage offers={offers}/>} />
           <Route path={Location.Login} element={<LoginScreen />} />
-          <Route path={Location.Room} element={<Property />} />
+          <Route path={Location.Room} element={<Property offers={offers}/>} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
