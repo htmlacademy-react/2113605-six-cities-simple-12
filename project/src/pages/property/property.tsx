@@ -1,5 +1,5 @@
 import FormComment from '../../components/form/form-comment/form-comment';
-import { OffersPropsType } from '../../mocks/offers';
+import { OffersPropsType } from '../../mocks/index';
 import OfferList from '../../components/offer-list/offer-list';
 
 type PropertyProps = {

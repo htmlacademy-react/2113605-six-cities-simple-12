@@ -1,5 +1,5 @@
 import { useRef, useEffect } from 'react';
-import { OffersPropsType, CityType } from '../../mocks/offers';
+import { OffersPropsType, CityType } from '../../mocks/index';
 import { Icon, Marker } from 'leaflet';
 import useMap from '../../hooks/useMap';
 import 'leaflet/dist/leaflet.css';

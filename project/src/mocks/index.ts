@@ -1,13 +1,3 @@
-export type OffersPropsType = {
-  id: string;
-  mark: string;
-  imageSrc: string;
-  priceValue: number;
-  name: string;
-  type: string;
-  lat: number;
-  lng: number;
-};
 
 export type CityType = {
   title: string;
@@ -21,6 +11,17 @@ export const CITY: CityType = {
   lat: 52.373057,
   lng: 4.892557,
   zoom: 10,
+};
+
+export type OffersPropsType = {
+  id: string;
+  mark: string;
+  imageSrc: string;
+  priceValue: number;
+  name: string;
+  type: string;
+  lat: number;
+  lng: number;
 };
 
 const offers: OffersPropsType[] = [
@@ -67,3 +68,4 @@ const offers: OffersPropsType[] = [
 ];
 
 export { offers };
+

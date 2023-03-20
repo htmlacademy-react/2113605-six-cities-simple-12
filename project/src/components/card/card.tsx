@@ -1,4 +1,4 @@
-import { OffersPropsType } from '../../mocks/offers';
+import { OffersPropsType } from '../../mocks/index';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { LocationApp } from '../../components/app/app';

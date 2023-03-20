@@ -4,7 +4,7 @@ import Property from '../../pages/property/property';
 import NotFound from '../../pages/not-found/not-found';
 import Layout from '../../components/layout/layout';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { offers, CITY } from '../../mocks/offers';
+import { offers, CITY } from '../../mocks/index';
 
 export enum LocationApp {
   Main = '/',

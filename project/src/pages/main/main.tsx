@@ -1,4 +1,4 @@
-import { OffersPropsType, CityType } from '../../mocks/offers';
+import { OffersPropsType, CityType } from '../../mocks/index';
 import OfferList from '../../components/offer-list/offer-list';
 import Map from '../../components/map/map';
 
