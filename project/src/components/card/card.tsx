@@ -1,7 +1,7 @@
 import { OffersPropsType } from '../../mocks/offers';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Location } from '../../components/app/app';
+import { LocationApp } from '../../components/app/app';
 
 type CardType = {
   offer: OffersPropsType;
@@ -18,9 +18,9 @@ function Card({ offer }: CardType): JSX.Element {
     setCardActive({ id: id });
   };
 
-  const collectPath = (id: string) => Location.Room + id;
-
+  const collectPath = (id: string) => LocationApp.Room + id;
   const { mark, imageSrc, priceValue, name, type } = offer;
+
   return (
     <article
       className={
