@@ -4,7 +4,7 @@ import Property from '../../pages/property/property';
 import NotFound from '../../pages/not-found/not-found';
 import Layout from '../../components/layout/layout';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { offers } from '../../mocks/offers';
+import { offers, CITY } from '../../mocks/offers';
 
 export enum LocationApp {
   Main = '/',
@@ -17,9 +17,12 @@ function App(): JSX.Element {
     <BrowserRouter>
       <Routes>
         <Route path={LocationApp.Main} element={<Layout />}>
-          <Route index element={<MainPage offers={offers}/>} />
+          <Route index element={<MainPage offers={offers} city={CITY} />} />
           <Route path={LocationApp.Login} element={<LoginScreen />} />
-          <Route path={LocationApp.Room} element={<Property offers={offers}/>} />
+          <Route
+            path={LocationApp.Room}
+            element={<Property offers={offers} />}
+          />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
