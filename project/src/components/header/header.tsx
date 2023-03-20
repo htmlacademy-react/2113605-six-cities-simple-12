@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { LocationApp } from '../app/app';
 
 function Header() {
   return (
@@ -7,7 +8,7 @@ function Header() {
         <div className="header__wrapper">
           <div className="header__left">
             <Link
-              to={'/'}
+              to={LocationApp.Main}
               className="header__logo-link header__logo-link--active"
             >
               <img

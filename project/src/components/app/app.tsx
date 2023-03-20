@@ -4,25 +4,22 @@ import Property from '../../pages/property/property';
 import NotFound from '../../pages/not-found/not-found';
 import Layout from '../../components/layout/layout';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { offers } from '../../mocks/offers';
 
-type AppProps = {
-  offersCount: number;
-};
-
-enum Location {
+export enum LocationApp {
   Main = '/',
   Login = '/login',
   Room = '/offer/:id',
 }
 
-function App({ offersCount }: AppProps): JSX.Element {
+function App(): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={Location.Main} element={<Layout />}>
-          <Route index element={<MainPage offersCount={offersCount} />} />
-          <Route path={Location.Login} element={<LoginScreen />} />
-          <Route path={Location.Room} element={<Property />} />
+        <Route path={LocationApp.Main} element={<Layout />}>
+          <Route index element={<MainPage offers={offers}/>} />
+          <Route path={LocationApp.Login} element={<LoginScreen />} />
+          <Route path={LocationApp.Room} element={<Property offers={offers}/>} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>

@@ -1,24 +1,53 @@
-function Card(): JSX.Element {
+import { OffersPropsType } from '../../mocks/offers';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { LocationApp } from '../../components/app/app';
+
+type CardType = {
+  offer: OffersPropsType;
+};
+
+type CardActiveType = {
+  id: string | null;
+};
+
+function Card({ offer }: CardType): JSX.Element {
+  const [cardActive, setCardActive] = useState<CardActiveType>({ id: null });
+
+  const handleMouseEnter = (id: string) => {
+    setCardActive({ id: id });
+  };
+
+  const collectPath = (id: string) => LocationApp.Room + id;
+  const { mark, imageSrc, priceValue, name, type } = offer;
+
   return (
-    <article className="cities__card place-card">
+    <article
+      className={
+        cardActive.id === offer.id
+          ? 'cities__card place-card place-card_active'
+          : 'cities__card place-card'
+      }
+      onMouseEnter={() => handleMouseEnter(offer.id)}
+    >
       <div className="place-card__mark">
-        <span>Premium</span>
+        <span>{mark}</span>
       </div>
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <button>
+        <Link to={collectPath(offer.id)}>
           <img
             className="place-card__image"
-            src="img/apartment-01.jpg"
+            src={imageSrc}
             width="260"
             height="200"
             alt=""
           />
-        </button>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">&euro;120</b>
+            <b className="place-card__price-value">&euro;{priceValue}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
         </div>
@@ -29,9 +58,9 @@ function Card(): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <button>Beautiful &amp; luxurious apartment at great location</button>
+          <button>{name}</button>
         </h2>
-        <p className="place-card__type">Apartment</p>
+        <p className="place-card__type">{type}</p>
       </div>
     </article>
   );
