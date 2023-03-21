@@ -1,11 +1,13 @@
-import { OffersPropsType } from '../../mocks/offers';
+import { OffersPropsType, CityType } from '../../mocks/index';
 import OfferList from '../../components/offer-list/offer-list';
+import Map from '../../components/map/map';
 
 type MainProps = {
   offers: OffersPropsType[];
+  city: CityType;
 };
 
-function Main({ offers }: MainProps): JSX.Element {
+function Main({ offers, city }: MainProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <main className="page__main page__main--index">
@@ -84,7 +86,9 @@ function Main({ offers }: MainProps): JSX.Element {
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <section className="cities__map map">
+                <Map points={offers} city={city}/>
+              </section>
             </div>
           </div>
         </div>
