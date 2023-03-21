@@ -2,12 +2,18 @@ import Card from '../card/card';
 import { Fragment } from 'react';
 import { OffersPropsType } from '../../mocks/index';
 
-function OfferList({ offers }: { offers: OffersPropsType[] }) {
+function OfferList({
+  offers,
+  isNear,
+}: {
+  offers: OffersPropsType[];
+  isNear: boolean;
+}) {
   return (
     <>
       {offers.map((item) => (
         <Fragment key={item.id}>
-          <Card offer={item} />
+          <Card isNear={isNear} offer={item} />
         </Fragment>
       ))}
     </>

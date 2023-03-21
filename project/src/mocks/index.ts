@@ -1,4 +1,3 @@
-
 export type CityType = {
   title: string;
   lat: number;
@@ -24,7 +23,16 @@ export type OffersPropsType = {
   lng: number;
 };
 
-const offers: OffersPropsType[] = [
+export type ReviewsType = {
+  id: string;
+  avatar: string;
+  user: string;
+  rating: number;
+  text: string;
+  time: string;
+};
+
+export const offers: OffersPropsType[] = [
   {
     id: '1',
     mark: 'Premium',
@@ -67,5 +75,21 @@ const offers: OffersPropsType[] = [
   },
 ];
 
-export { offers };
-
+export const reviews: ReviewsType[] = [
+  {
+    id: '1',
+    avatar: 'img/avatar-max.jpg',
+    user: 'Max',
+    rating: 80,
+    text: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.',
+    time: '2019-04-24',
+  },
+  {
+    id: '2',
+    avatar: 'img/avatar-angelina.jpg',
+    user: 'Angelina',
+    rating: 85,
+    text: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+    time: '2022-01-13',
+  },
+];
