@@ -5,14 +5,23 @@ import { LocationApp } from '../../components/app/app';
 
 type CardType = {
   offer: OffersPropsType;
+  isNear: boolean;
 };
 
 type CardActiveType = {
   id: string | null;
 };
 
-function Card({ offer }: CardType): JSX.Element {
-  const [cardActive, setCardActive] = useState<CardActiveType>({ id: null });
+const getCurrentClass = (isNear: boolean) => {
+  if (isNear) {
+    return 'near-places__card place-card';
+  } else {
+    return 'cities__card place-card';
+  }
+};
+
+function Card({ offer, isNear }: CardType): JSX.Element {
+  const [, setCardActive] = useState<CardActiveType>({ id: null });
 
   const handleMouseEnter = (id: string) => {
     setCardActive({ id: id });
@@ -20,14 +29,9 @@ function Card({ offer }: CardType): JSX.Element {
 
   const collectPath = (id: string) => LocationApp.Room + id;
   const { mark, imageSrc, priceValue, name, type } = offer;
-
   return (
     <article
-      className={
-        cardActive.id === offer.id
-          ? 'cities__card place-card place-card_active'
-          : 'cities__card place-card'
-      }
+      className={getCurrentClass(isNear)}
       onMouseEnter={() => handleMouseEnter(offer.id)}
     >
       <div className="place-card__mark">
