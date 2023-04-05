@@ -1,5 +1,13 @@
 import { createAction } from '@reduxjs/toolkit';
-import { Cities } from '../mocks';
+import { CityNameType, SortType } from '../mocks';
 
-export const setCity = createAction<{currentCity: typeof Cities[number]}>('offer/setCity');
+export const changeCity = createAction<{ currentCity: CityNameType }>(
+  'offer/changeCity'
+);
+
 export const updateOffers = createAction('offer/updateOffers');
+
+export const changeSort = createAction(
+  'offer/changeSort',
+  (sort: SortType) => ({ payload: sort })
+);

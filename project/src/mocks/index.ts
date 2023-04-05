@@ -34,6 +34,8 @@ export type ReviewsType = {
   time: string;
 };
 
+export type CityNameType = typeof Cities[number];
+
 export const Cities = [
   'Paris',
   'Cologne',
@@ -42,6 +44,15 @@ export const Cities = [
   'Hamburg',
   'Dusseldorf',
 ] as const;
+
+export enum SortType {
+  Popular = 'Popular',
+  LowPrice = 'Price: low to high',
+  HightPrice = 'Price: high to low',
+  Rating = 'Top rated first'
+}
+
+export const DEFAULT_SORT = SortType.Popular;
 
 export const DEFAULT_CITY: typeof Cities[number] = 'Paris';
 
