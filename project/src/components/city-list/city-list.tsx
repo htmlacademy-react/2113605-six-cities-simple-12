@@ -1,5 +1,5 @@
 import { useAppSelector, useAppDispatch } from '../../hooks/redux';
-import { setCity, updateOffers } from '../../store/action';
+import { changeCity, updateOffers } from '../../store/action';
 import { Cities } from '../../mocks';
 
 function CityList(): JSX.Element {
@@ -7,7 +7,7 @@ function CityList(): JSX.Element {
   const dispatch = useAppDispatch();
 
   const onChangeCity = (city: typeof Cities[number]) => {
-    dispatch(setCity({ currentCity: city }));
+    dispatch(changeCity({ currentCity: city }));
     dispatch(updateOffers());
   };
 
