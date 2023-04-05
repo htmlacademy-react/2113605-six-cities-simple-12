@@ -1,15 +1,12 @@
 export type CityType = {
-  title: string;
-  lat: number;
-  lng: number;
-  zoom: number;
+  location: LocationType;
+  name: typeof Cities[number];
 };
 
-export const CITY: CityType = {
-  title: 'Амстердам',
-  lat: 52.373057,
-  lng: 4.892557,
-  zoom: 10,
+export type LocationType = {
+  latitude: number;
+  longitude: number;
+  zoom: number;
 };
 
 export type OffersPropsType = {
@@ -17,10 +14,15 @@ export type OffersPropsType = {
   mark: string;
   imageSrc: string;
   priceValue: number;
+  rating: number;
   name: string;
   type: string;
-  lat: number;
-  lng: number;
+  location: {
+    latitude: number;
+    longitude: number;
+    zoom: number;
+  };
+  city: string;
 };
 
 export type ReviewsType = {
@@ -32,46 +34,77 @@ export type ReviewsType = {
   time: string;
 };
 
+export const Cities = [
+  'Paris',
+  'Cologne',
+  'Brussels',
+  'Amsterdam',
+  'Hamburg',
+  'Dusseldorf',
+] as const;
+
+export const DEFAULT_CITY: typeof Cities[number] = 'Paris';
+
 export const offers: OffersPropsType[] = [
   {
     id: '1',
     mark: 'Premium',
     imageSrc: 'img/apartment-01.jpg',
     priceValue: 120,
+    rating: 3.8,
     name: 'Beautiful luxurious apartment at great location',
     type: 'Apartment',
-    lat: 52.3909553943508,
-    lng: 4.85309666406198,
+    location: {
+      latitude: 48.862610000000004,
+      longitude: 2.369499,
+      zoom: 16,
+    },
+    city: 'Paris',
   },
   {
     id: '2',
     mark: 'Premium',
     imageSrc: 'img/apartment-02.jpg',
     priceValue: 130,
+    rating: 4,
     name: 'Super apartment on the beach',
     type: 'Apartment',
-    lat: 52.3609553943508,
-    lng: 4.85309666406198,
+    city: 'Amsterdam',
+    location: {
+      latitude: 52.3609553943508,
+      longitude: 4.85309666406198,
+      zoom: 16
+    },
   },
   {
     id: '3',
     mark: 'Premium',
     imageSrc: 'img/apartment-03.jpg',
     priceValue: 90,
+    rating: 4,
     name: 'Cheap apartment, suitable for everyone',
     type: 'Apartment',
-    lat: 52.3909553943508,
-    lng: 4.929309666406198,
+    location: {
+      latitude: 52.3809553943508,
+      longitude: 4.939309666406198,
+      zoom: 12,
+    },
+    city: 'Amsterdam',
   },
   {
     id: '4',
     mark: 'Premium',
     imageSrc: 'img/apartment-02.jpg',
     priceValue: 70,
+    rating: 3,
     name: 'This is only with us and with Michael Jackson',
     type: 'Apartment',
-    lat: 52.3809553943508,
-    lng: 4.939309666406198,
+    location: {
+      latitude: 52.3809553943508,
+      longitude: 4.939309666406198,
+      zoom: 16,
+    },
+    city: 'Amsterdam',
   },
 ];
 

@@ -1,44 +1,14 @@
+import CityList from '../../components/city-list/city-list';
+import { useAppSelector } from '../../hooks/redux';
+
 function MainEmpty(): JSX.Element {
+  const activeCity = useAppSelector((state) => state.activeCity);
+
   return (
     <div className="page page--gray page--main">
       <main className="page__main page__main--index page__main--index-empty">
         <h1 className="visually-hidden">Cities</h1>
-        <div className="tabs">
-          <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <button className="locations__item-link tabs__item">
-                  <span>Paris</span>
-                </button>
-              </li>
-              <li className="locations__item">
-                <button className="locations__item-link tabs__item">
-                  <span>Cologne</span>
-                </button>
-              </li>
-              <li className="locations__item">
-                <button className="locations__item-link tabs__item">
-                  <span>Brussels</span>
-                </button>
-              </li>
-              <li className="locations__item">
-                <button className="locations__item-link tabs__item">
-                  <span>Amsterdam</span>
-                </button>
-              </li>
-              <li className="locations__item">
-                <button className="locations__item-link tabs__item">
-                  <span>Hamburg</span>
-                </button>
-              </li>
-              <li className="locations__item">
-                <button className="locations__item-link tabs__item tabs__item--active">
-                  <span>Dusseldorf</span>
-                </button>
-              </li>
-            </ul>
-          </section>
-        </div>
+        <CityList />
         <div className="cities">
           <div className="cities__places-container cities__places-container--empty container">
             <section className="cities__no-places">
@@ -46,7 +16,7 @@ function MainEmpty(): JSX.Element {
                 <b className="cities__status">No places to stay available</b>
                 <p className="cities__status-description">
                   We could not find any property available at the moment in
-                  Dusseldorf
+                  {activeCity}
                 </p>
               </div>
             </section>

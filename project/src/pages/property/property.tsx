@@ -1,14 +1,14 @@
 import FormComment from '../../components/form/form-comment/form-comment';
-import { OffersPropsType, ReviewsType, CityType } from '../../mocks/index';
+import { OffersPropsType, ReviewsType } from '../../mocks/index';
 import OfferList from '../../components/offer-list/offer-list';
 import ReviewsList from '../../components/reviews/reviews-list';
-import Map from '../../components/map/map';
+// import Map from '../../components/map/map';
 
 type PropertyProps = {
   offers: OffersPropsType[];
   reviews: ReviewsType[];
   similarOffers: OffersPropsType[];
-  city: CityType;
+  city: OffersPropsType;
 };
 
 function Property({
@@ -151,7 +151,7 @@ function Property({
             </div>
           </div>
           <section className="property__map map">
-            <Map points={similarOffers} city={city} />
+            {/* <Map points={similarOffers} city={city} /> */}
           </section>
         </section>
         <div className="container">

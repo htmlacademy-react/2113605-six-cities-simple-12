@@ -1,15 +1,11 @@
 import { OffersPropsType } from '../../mocks/index';
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { LocationApp } from '../../components/app/app';
 
 type CardType = {
   offer: OffersPropsType;
   isNear: boolean;
-};
-
-type CardActiveType = {
-  id: string | null;
+  selectOffer?: (value: OffersPropsType | null) => void;
 };
 
 const getCurrentClass = (isNear: boolean) => {
@@ -20,25 +16,27 @@ const getCurrentClass = (isNear: boolean) => {
   }
 };
 
-function Card({ offer, isNear }: CardType): JSX.Element {
-  const [, setCardActive] = useState<CardActiveType>({ id: null });
-
-  const handleMouseEnter = (id: string) => {
-    setCardActive({ id: id });
+function Card({ offer, isNear, selectOffer }: CardType): JSX.Element {
+  const handleOfferHover = (value: OffersPropsType | null) => {
+    if (typeof selectOffer === 'function') {
+      selectOffer(value);
+    }
   };
 
   const collectPath = (id: string) => LocationApp.Room + id;
-  const { mark, imageSrc, priceValue, name, type } = offer;
+  const { mark, imageSrc, priceValue, name, type, id } = offer;
+
   return (
     <article
       className={getCurrentClass(isNear)}
-      onMouseEnter={() => handleMouseEnter(offer.id)}
+      onMouseEnter={() => handleOfferHover(offer)}
+      onMouseLeave={() => handleOfferHover(null)}
     >
       <div className="place-card__mark">
         <span>{mark}</span>
       </div>
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to={collectPath(offer.id)}>
+        <Link to={collectPath(id)}>
           <img
             className="place-card__image"
             src={imageSrc}
