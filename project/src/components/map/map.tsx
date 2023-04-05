@@ -6,8 +6,8 @@ import 'leaflet/dist/leaflet.css';
 
 const MarkerIcon = {
   Image: {
-    Default: 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg',
-    Active: 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin-active.svg',
+    Default: 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg',
+    Active: 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg',
   },
   Size: {
     Width: 28,
