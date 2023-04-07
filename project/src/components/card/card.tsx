@@ -19,8 +19,6 @@ const getCurrentClass = (isNear: boolean) => {
 function Card({ offer, isNear, selectOffer }: CardType): JSX.Element {
   const handleOfferHover = (value: OffersPropsType | null) => {
     if (selectOffer) {
-      const {log} = console;
-      log(value);
       selectOffer(value);
     }
   };
