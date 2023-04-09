@@ -1,41 +1,36 @@
-import { useAppSelector, useAppDispatch } from '../../hooks/redux';
-import { changeCity, updateOffers } from '../../store/action';
-import { Cities } from '../../mocks';
+import { Cities } from '../../consts';
+import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import cn from 'classnames';
+import { useAppSelector } from '../../hooks/redux';
+import { changeCity } from '../../store/action';
 
 function CityList(): JSX.Element {
-  const activeCity = useAppSelector((state) => state.activeCity);
-  const dispatch = useAppDispatch();
-
-  const onChangeCity = (city: typeof Cities[number]) => {
-    dispatch(changeCity({ currentCity: city }));
-    dispatch(updateOffers());
-  };
+  const dispatch = useDispatch();
+  const location = useAppSelector((state) => state.city);
 
   return (
     <div className="tabs">
       <section className="locations container">
         <ul className="locations__list tabs__list">
-          {Cities.map((city, index) => {
-            const keyValue = `${index}-${city}`;
-            const isActive = city === activeCity;
-
-            return (
-              <li className="locations__item" key={keyValue}>
-                <a
-                  className={`locations__item-link tabs__item ${
-                    isActive ? 'tabs__item--active' : ''
-                  }`}
+          {Cities &&
+            Cities.length > 0 &&
+            Cities.map((city) => (
+              <li key={city} className="locations__item">
+                <Link
+                  className={cn('locations__item-link tabs__item', {
+                    'tabs__item--active': location === city,
+                  })}
+                  to=""
                   onClick={(event) => {
                     event.preventDefault();
-                    onChangeCity(city);
+                    dispatch(changeCity(city));
                   }}
-                  href="/"
                 >
                   <span>{city}</span>
-                </a>
+                </Link>
               </li>
-            );
-          })}
+            ))}
         </ul>
       </section>
     </div>

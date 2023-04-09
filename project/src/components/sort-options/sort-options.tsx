@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { SortType } from '../../mocks/index';
 import { useAppSelector } from '../../hooks/redux';
 import { changeSort } from '../../store/action';
 import cn from 'classnames';
+import { SortType } from '../../consts';
 
 function SortOptions(): JSX.Element {
   const [isOpen, setIsOpen] = useState(false);

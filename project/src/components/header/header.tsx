@@ -1,7 +1,11 @@
 import { Link } from 'react-router-dom';
-import { LocationApp } from '../app/app';
+import { LocationApp } from '../../consts';
+import { useLocation } from 'react-router-dom';
+import HeaderNav from '../header-nav/header-nav';
 
 function Header() {
+  const location = useLocation();
+
   return (
     <header className="header">
       <div className="container">
@@ -20,23 +24,7 @@ function Header() {
               />
             </Link>
           </div>
-          <nav className="header__nav">
-            <ul className="header__nav-list">
-              <li className="header__nav-item user">
-                <div className="header__nav-profile">
-                  <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                  <span className="header__user-name user__name">
-                    Oliver.conner@gmail.com
-                  </span>
-                </div>
-              </li>
-              <li className="header__nav-item">
-                <button className="header__nav-link">
-                  <span className="header__signout">Sign out</span>
-                </button>
-              </li>
-            </ul>
-          </nav>
+          {location.pathname !== LocationApp.Login ? <HeaderNav /> : null}
         </div>
       </div>
     </header>

@@ -1,13 +1,16 @@
-import { useRef, useEffect, useState } from 'react';
-import { OffersPropsType } from '../../mocks/index';
-import { Icon, Marker, LayerGroup, PointTuple } from 'leaflet';
+import { useRef, useEffect } from 'react';
+import { Icon, PointTuple } from 'leaflet';
+import leaflet from 'leaflet';
+import { OfferType } from '../../types';
 import useMap from '../../hooks/useMap';
 import 'leaflet/dist/leaflet.css';
 
 const MarkerIcon = {
   Image: {
-    Default: 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg',
-    Active: 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg',
+    Default:
+      'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg',
+    Active:
+      'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg',
   },
   Size: {
     Width: 28,
@@ -16,73 +19,74 @@ const MarkerIcon = {
 } as const;
 
 const iconSize: PointTuple = [MarkerIcon.Size.Width, MarkerIcon.Size.Height];
-const iconAnchor: PointTuple = [MarkerIcon.Size.Width / 2, MarkerIcon.Size.Height];
+const iconAnchor: PointTuple = [
+  MarkerIcon.Size.Width / 2,
+  MarkerIcon.Size.Height,
+];
 
 const defaultCustomIcon = new Icon({
   iconUrl: MarkerIcon.Image.Default,
   iconSize,
-  iconAnchor
+  iconAnchor,
 });
 
 const currentCustomIcon = new Icon({
   iconUrl: MarkerIcon.Image.Active,
   iconSize,
-  iconAnchor
+  iconAnchor,
 });
 
 type MapProps = {
-  city: OffersPropsType;
-  offers: OffersPropsType[];
-  activeOffer: OffersPropsType | null;
-  className?: string;
+  offers: OfferType[];
+  hoverCard?: OfferType | null;
+  className: string;
+  page?: OfferType;
+  location: string;
 };
 
-function Map({ city, offers, activeOffer, className }: MapProps): JSX.Element {
+function Map({
+  className,
+  offers,
+  location,
+  hoverCard,
+  page,
+}: MapProps): JSX.Element {
+  const cityLocation = offers.filter((offer) => location === offer.city.name)[0].city.location;
   const mapRef = useRef(null);
-  const map = useMap(mapRef, city);
-  const [currentCity, setCurrentCity] = useState<string>(city.name);
+  const map = useMap(mapRef, cityLocation);
 
   useEffect(() => {
     if (map) {
-      if (currentCity !== city.name) {
-        map.flyTo(
-          [
-            city.location.latitude,
-            city.location.longitude
-          ],
-          city.location?.zoom,
-          {
-            animate: true,
-            duration: 1
-          }
-        );
-
-        setCurrentCity(city.name);
-      }
-
-      const markers = offers.map(
-        (offer) =>
-          new Marker(
-            {
-              lat: offer.location.latitude,
-              lng: offer.location.longitude,
-            },
-            {
-              icon: offer.id === activeOffer?.id ? currentCustomIcon : defaultCustomIcon,
-            }
-          )
+      map.flyTo(
+        [cityLocation.latitude, cityLocation.longitude],
+        cityLocation.zoom,
+        {
+          animate: true
+        }
       );
+      const markerGroup = leaflet.layerGroup().addTo(map);
+      offers.forEach((offer) => {
+        const marker = leaflet.marker({
+          lat: offer.location?.latitude,
+          lng: offer.location?.longitude,
+        });
 
-      const markersLayer = new LayerGroup(markers);
-      markersLayer.addTo(map);
+        marker
+          .setIcon(
+            hoverCard === offer || page === offer
+              ? currentCustomIcon
+              : defaultCustomIcon
+          )
+          .addTo(markerGroup);
+      });
 
       return () => {
-        map.removeLayer(markersLayer);
+        map.removeLayer(markerGroup);
       };
     }
-  }, [city, currentCity, map, offers, activeOffer]);
+  }, [map, offers, hoverCard, cityLocation, page]);
 
-  return <div style={{ height: '100%' }} ref={mapRef}></div>;
+  return <div ref={mapRef} className={`${className}__map map`}></div>;
 }
 
 export default Map;

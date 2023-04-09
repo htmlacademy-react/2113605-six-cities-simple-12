@@ -1,11 +1,11 @@
-import { ReviewsType } from '../../mocks';
 import ReviewsItem from './reviews-item';
+import { ReviewsItemType } from '../../types';
 
-function ReviewsList({ reviews }: { reviews: ReviewsType[] }) {
+function ReviewsList({ reviews }: { reviews: ReviewsItemType }) {
   return (
     <ul className="reviews__list">
-      {reviews.map((item) => (
-        <ReviewsItem key={item.id} review={item} />
+      {reviews.review.map((item, index) => (
+        <ReviewsItem key={item.avatarUrl} review={item} />
       ))}
     </ul>
   );
