@@ -36,11 +36,11 @@ const ratingData: RatingDataType[] = [
 
 function RatingInput(): JSX.Element {
   return (
-    <div className="reviews__rating-htmlForm htmlForm__rating">
+    <div className="reviews__rating-form form__rating">
       {ratingData.map(({ id, value, title }) => (
         <Fragment key={id}>
           <input
-            className="htmlForm__rating-input visually-hidden"
+            className="form__rating-input visually-hidden"
             name="rating"
             value={value}
             id={id}
@@ -48,10 +48,10 @@ function RatingInput(): JSX.Element {
           />
           <label
             htmlFor={id}
-            className="reviews__rating-label htmlForm__rating-label"
+            className="reviews__rating-label form__rating-label"
             title={title}
           >
-            <svg className="htmlForm__star-image" width="37" height="33">
+            <svg className="form__star-image" width="37" height="33">
               <use xlinkHref="#icon-star"></use>
             </svg>
           </label>

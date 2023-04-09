@@ -1,68 +1,58 @@
-import { OffersPropsType } from '../../mocks/index';
 import { Link } from 'react-router-dom';
-import { LocationApp } from '../../components/app/app';
+import { LocationApp } from '../../consts';
+import { OfferType } from '../../types';
+import { convertPercentage } from '../../utils';
 
 type CardType = {
-  offer: OffersPropsType;
-  isNear: boolean;
-  selectOffer?: (value: OffersPropsType | null) => void;
+  offer: OfferType;
+  onHoverCard?: (offer: OfferType | null) => void;
+  className: string;
 };
 
-const getCurrentClass = (isNear: boolean) => {
-  if (isNear) {
-    return 'near-places__card place-card';
-  } else {
-    return 'cities__card place-card';
-  }
-};
-
-function Card({ offer, isNear, selectOffer }: CardType): JSX.Element {
-  const handleOfferHover = (value: OffersPropsType | null) => {
-    if (selectOffer) {
-      selectOffer(value);
-    }
-  };
-
-  const collectPath = (id: string) => LocationApp.Room + id;
-  const { mark, imageSrc, priceValue, name, type, id } = offer;
+function Card({ offer, onHoverCard, className }: CardType): JSX.Element {
+  const collectPath = (id: string | number) => LocationApp.Offer + String(id);
+  const { isPremium, previewImage, price, title, type, id, rating } = offer;
 
   return (
     <article
-      className={getCurrentClass(isNear)}
-      onMouseEnter={() => handleOfferHover(offer)}
-      onMouseLeave={() => handleOfferHover(null)}
+      className={`${className}__card place-card`}
+      onMouseEnter={() => onHoverCard && (onHoverCard(offer))}
+      onMouseLeave={() => onHoverCard && (onHoverCard(null))}
     >
-      <div className="place-card__mark">
-        <span>{mark}</span>
-      </div>
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      {isPremium ?? (
+        <div className="place-card__mark">
+          <span>Premium</span>
+        </div>
+      )}
+
+      <div className={`${className}__image-wrapper place-card__image-wrapper`}>
         <Link to={collectPath(id)}>
           <img
             className="place-card__image"
-            src={imageSrc}
+            src={previewImage}
             width="260"
             height="200"
-            alt=""
+            alt="Place"
           />
         </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">&euro;{priceValue}</b>
+            <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: '80%' }}></span>
+            <span style={{ width: convertPercentage(rating) }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <button>{name}</button>
+          <Link to={collectPath(id)}>{title}</Link>
         </h2>
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type">{type.toUpperCase()}</p>
       </div>
     </article>
   );
