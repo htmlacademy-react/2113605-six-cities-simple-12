@@ -1,18 +1,20 @@
 import RatingInput from '../rating-input/rating-input';
-import { useState } from 'react';
-
-type FormDataType = {
-  review: string;
-};
+import { useState, useEffect, ChangeEvent } from 'react';
 
 function FormComment(): JSX.Element {
-  const [formData, setFormData] = useState<FormDataType>({
-    review: '',
-  });
+  const [value, setValue] = useState('');
+  const [isFits, setIsFits] = useState<boolean>(true);
 
-  const fieldChangeHandle: React.ChangeEventHandler<HTMLTextAreaElement> = (event) => {
-    const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
+  useEffect(() => {
+    if (value.length < 50 || value.length > 300) {
+      setIsFits(true);
+    } else {
+      setIsFits(true);
+    }
+  }, [value]);
+
+  const onChangeValue = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    setValue(event.target.value);
   };
 
   return (
@@ -25,8 +27,8 @@ function FormComment(): JSX.Element {
         className="reviews__textarea htmlForm__textarea"
         id="review"
         name="review"
-        value={formData.review}
-        onChange={fieldChangeHandle}
+        value={value}
+        onChange={onChangeValue}
         placeholder="Tell how was your stay, what you like and what can be improved"
       />
       <div className="reviews__button-wrapper">
@@ -39,7 +41,7 @@ function FormComment(): JSX.Element {
         <button
           className="reviews__submit htmlForm__submit button"
           type="submit"
-          disabled
+          disabled={isFits}
         >
           Submit
         </button>
