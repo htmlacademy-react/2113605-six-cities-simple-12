@@ -1,9 +1,18 @@
 import { Link } from 'react-router-dom';
 import { AuthorizationStatus, LocationApp } from '../../consts';
-import { useAppSelector } from '../../hooks/redux';
+import { useAppSelector, useAppDispatch } from '../../hooks/redux';
+import { logOutAction } from '../../store/api-actions';
+import { useEffect, useState } from 'react';
 
 function HeaderNav(): JSX.Element {
   const authStatus = useAppSelector((state) => state.authorizationStatus);
+  const userData = useAppSelector((state) => state.userData);
+  const dispatch = useAppDispatch();
+  const [authEmail, setAuthEmail] = useState<string>('');
+
+  useEffect(() => {
+    userData ? setAuthEmail(userData.email) : setAuthEmail('');
+  }, [userData]);
 
   return (
     <nav className="header__nav">
@@ -14,12 +23,19 @@ function HeaderNav(): JSX.Element {
               <div className="header__nav-profile">
                 <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                 <span className="header__user-name user__name">
-                  Oliver.conner@gmail.com
+                  {authEmail}
                 </span>
               </div>
             </li>
             <li className="header__nav-item">
-              <Link className="header__nav-link" to="/">
+              <Link
+                className="header__nav-link"
+                onClick={(evt) => {
+                  evt.preventDefault();
+                  dispatch(logOutAction());
+                }}
+                to={LocationApp.Main}
+              >
                 <span className="header__signout">Sign out</span>
               </Link>
             </li>

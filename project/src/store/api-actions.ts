@@ -1,7 +1,7 @@
 import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { APIRoute, LocationApp, AuthorizationStatus } from '../consts';
-import { loadOffers, redirect, authorization, setLoadingStatus } from './action';
+import { loadOffers, redirect, authorization, setLoadingStatus, getUserData } from './action';
 import { AuthDataType, UserDataType, OfferType, AppDispatch, State } from '../types';
 import { dropToken, saveToken } from '../services/token';
 
@@ -27,8 +27,9 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
   'user/checkAuth',
   async (_arg, { dispatch, extra: api }) => {
     try {
-      await api.get(APIRoute.Login);
+      const { data } = await api.get<UserDataType>(APIRoute.Login);
       dispatch(authorization(AuthorizationStatus.Auth));
+      dispatch(getUserData(data));
     } catch {
       dispatch(authorization(AuthorizationStatus.NoAuth));
     }
