@@ -2,17 +2,11 @@ import { Link } from 'react-router-dom';
 import { AuthorizationStatus, LocationApp } from '../../consts';
 import { useAppSelector, useAppDispatch } from '../../hooks/redux';
 import { logOutAction } from '../../store/api-actions';
-import { useEffect, useState } from 'react';
 
 function HeaderNav(): JSX.Element {
   const authStatus = useAppSelector((state) => state.authorizationStatus);
   const userData = useAppSelector((state) => state.userData);
   const dispatch = useAppDispatch();
-  const [authEmail, setAuthEmail] = useState<string>('');
-
-  useEffect(() => {
-    userData ? setAuthEmail(userData.email) : setAuthEmail('');
-  }, [userData]);
 
   return (
     <nav className="header__nav">
@@ -23,7 +17,7 @@ function HeaderNav(): JSX.Element {
               <div className="header__nav-profile">
                 <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                 <span className="header__user-name user__name">
-                  {authEmail}
+                  {userData?.email}
                 </span>
               </div>
             </li>

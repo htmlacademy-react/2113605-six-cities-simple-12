@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { useAppSelector } from '../../hooks/redux';
-import HistoryRouter from '../history-route/history-route';
+import HistoryRouter from '../history-router/history-router';
 import MainPage from '../../pages/main/main';
 import { default as LoginScreen } from '../../pages/login/login';
 import Property from '../../pages/property/property';
