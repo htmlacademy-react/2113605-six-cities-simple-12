@@ -1,23 +1,42 @@
 import { Helmet } from 'react-helmet-async';
 import { Navigate, useParams } from 'react-router-dom';
+import { useEffect } from 'react';
 import FormComment from '../../components/form/form-comment/form-comment';
-// import OfferList from '../../components/offer-list/offer-list';
-// import ReviewsList from '../../components/reviews/reviews-list';
-import { useAppSelector } from '../../hooks/redux';
+import {
+  fetchNearOffersAction,
+  fetchCurrentOfferAction,
+  fetchReviewsAction,
+} from '../../store/api-actions';
+import OfferList from '../../components/offer-list/offer-list';
+import ReviewsList from '../../components/reviews/reviews-list';
 import PropertyGalleryImg from '../../components/property-gallery-img/property-gallery-img';
-import { convertPercentage } from '../../utils';
-import {AuthorizationStatus} from '../../consts';
+import { AuthorizationStatus, LocationApp } from '../../consts';
 import Map from '../../components/map/map';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import Loader from '../../components/loader/loader';
+import { getPercent } from '../../utils';
 
 function Property(): JSX.Element {
   const { id } = useParams();
+  const currentOfferId = Number(id);
+  const dispatch = useAppDispatch();
   const authStatus = useAppSelector((state) => state.authorizationStatus);
-  const offers = useAppSelector((state) => state.offers);
+  const isOfferLoading = useAppSelector((state) => state.isOfferLoading);
+  const currentOffer = useAppSelector((state) => state.currentOffer);
+  const reviews = useAppSelector((state) => state.reviews);
+  const similarOffers = useAppSelector((state) => state.nearOffers);
   const location = useAppSelector((state) => state.city);
-  const property = offers.find((offer) => String(offer.id) === String(id));
-  if (property === undefined) {
-    return <Navigate to={'/page-not-found'} replace />;
+
+  useEffect(() => {
+    dispatch(fetchCurrentOfferAction(currentOfferId));
+    dispatch(fetchReviewsAction(currentOfferId));
+    dispatch(fetchNearOffersAction(currentOfferId));
+  }, [dispatch, currentOfferId]);
+
+  if (!currentOffer) {
+    return <Navigate to={LocationApp.notFound} replace />;
   }
+
   const {
     images,
     isPremium,
@@ -30,7 +49,11 @@ function Property(): JSX.Element {
     goods,
     host,
     description,
-  } = property;
+  } = currentOffer;
+
+  if (isOfferLoading) {
+    return <Loader />;
+  }
 
   return (
     <div className="page">
@@ -61,7 +84,7 @@ function Property(): JSX.Element {
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{ width: convertPercentage(rating) }}></span>
+                  <span style={{ width: `${getPercent(rating)}%` }}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="property__rating-value rating__value">
@@ -116,22 +139,27 @@ function Property(): JSX.Element {
                   ) : null}
                 </div>
                 <div className="property__description">
-                  <p className="property__text">
-                    {description}
-                  </p>
+                  <p className="property__text">{description}</p>
                 </div>
               </div>
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">
                   Reviews &middot;
-                  {/* <span className="reviews__amount">{reviews.length}</span> */}
+                  <span className="reviews__amount">{reviews.length}</span>
                 </h2>
-                {/* <ReviewsList reviews={reviews} /> */}
-                { authStatus === AuthorizationStatus.Auth ? <FormComment /> : null}
+                <ReviewsList reviews={reviews} />
+                {authStatus === AuthorizationStatus.Auth ? (
+                  <FormComment currentOffer={currentOfferId} />
+                ) : null}
               </section>
             </div>
           </div>
-          <Map className={'property'} offers={offers} page={property} location={location} />
+          <Map
+            className={'property'}
+            offers={similarOffers.concat(currentOffer)}
+            page={currentOffer}
+            location={location}
+          />
         </section>
         <div className="container">
           <section className="near-places places">
@@ -139,7 +167,7 @@ function Property(): JSX.Element {
               Other places in the neighbourhood
             </h2>
             <div className="near-places__list places__list">
-              {/* <OfferList offers={offers} /> */}
+              {similarOffers && <OfferList isNear offers={similarOffers} />}
             </div>
           </section>
         </div>

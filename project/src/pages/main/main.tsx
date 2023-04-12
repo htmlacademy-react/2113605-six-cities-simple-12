@@ -29,7 +29,7 @@ function Main(): JSX.Element {
         <CityList />
         <div className="cities">
           {offers && offers.length > 0 ? (
-            <OfferList offers={offers} />
+            <OfferList isNear={false} offers={offers} />
           ) : (
             <MainEmpty />
           )}

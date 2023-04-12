@@ -2,7 +2,7 @@ import type { BrowserHistory } from 'history';
 import { useLayoutEffect, useState } from 'react';
 import { Router } from 'react-router-dom';
 
-export interface HistoryRouteType {
+export type HistoryRouteType = {
   history: BrowserHistory;
   basename?: string;
   children?: React.ReactNode;

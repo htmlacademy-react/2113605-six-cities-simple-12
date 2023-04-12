@@ -56,16 +56,22 @@ export type HostType = {
 };
 
 export type ReviewType = {
-  avatarUrl: string;
-  name: string;
-  score: number;
+  comment: string;
   date: string;
-  text: string;
+  id: number;
+  rating: number;
+  user: HostType;
 }
 
 export type ReviewsItemType = {
   id: number;
   review: ReviewType[];
+};
+
+export type NewReview = {
+  id: number;
+  comment: string;
+  rating: number;
 };
 
 export type UserDataType = {
