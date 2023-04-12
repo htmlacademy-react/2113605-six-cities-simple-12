@@ -1,12 +1,11 @@
 import { Cities } from '../../consts';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import cn from 'classnames';
-import { useAppSelector } from '../../hooks/redux';
+import { useAppSelector, useAppDispatch } from '../../hooks/redux';
 import { changeCity } from '../../store/action';
 
 function CityList(): JSX.Element {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const location = useAppSelector((state) => state.city);
 
   return (

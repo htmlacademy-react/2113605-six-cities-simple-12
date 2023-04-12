@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { LocationApp } from '../../consts';
 import { OfferType } from '../../types';
-import { convertPercentage } from '../../utils';
+import { getPercent } from '../../utils';
 
 type CardType = {
   offer: OfferType;
@@ -45,7 +45,7 @@ function Card({ offer, onHoverCard, className }: CardType): JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: convertPercentage(rating) }}></span>
+            <span style={{ width: getPercent(rating) }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

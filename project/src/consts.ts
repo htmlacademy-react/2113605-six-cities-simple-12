@@ -2,6 +2,7 @@ export enum LocationApp {
   Main = '/',
   Login = '/login',
   Offer = '/offer/',
+  notFound = '/page-not-found'
 }
 
 export enum APIRoute {
