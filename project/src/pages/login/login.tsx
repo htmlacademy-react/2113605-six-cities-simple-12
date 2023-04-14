@@ -4,11 +4,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AuthDataType } from '../../types';
 import { loginAction } from '../../store/api-actions';
 import { LocationApp } from '../../consts';
-import { useAppDispatch } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 
 function Login(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
+  const location = useAppSelector((state) => state.city);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -77,7 +78,7 @@ function Login(): JSX.Element {
             <section className="locations locations--login locations--current">
               <div className="locations__item">
                 <Link className="locations__item-link" to={LocationApp.Main}>
-                  <span>Amsterdam</span>
+                  <span>{location}</span>
                 </Link>
               </div>
             </section>
