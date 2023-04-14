@@ -15,7 +15,7 @@ function FormComment({ currentOffer }: { currentOffer: number }): JSX.Element {
     setValue(event.target.value);
   };
 
-  const onChangeChecked = ({ target }: ChangeEvent<HTMLInputElement>) => {
+  const onChecked = ({ target }: ChangeEvent<HTMLInputElement>) => {
     if (target.name === 'rating') {
       setSelect(target.value);
     }
@@ -35,6 +35,16 @@ function FormComment({ currentOffer }: { currentOffer: number }): JSX.Element {
           rating: Number(select),
         })
       );
+      if (!setReviewLoading) {
+        if (select !== '0') {
+          const raitingElement = document.getElementById(`${select}-stars`);
+          if (raitingElement) {
+            (raitingElement as HTMLInputElement).checked = false;
+          }
+        }
+        setSelect('');
+        setValue('');
+      }
     }
   };
 
@@ -45,7 +55,7 @@ function FormComment({ currentOffer }: { currentOffer: number }): JSX.Element {
       </label>
       <RatingInput
         select={select}
-        onChangeChecked={onChangeChecked}
+        onChecked={onChecked}
         isDisabled={setReviewLoading}
       />
       <textarea

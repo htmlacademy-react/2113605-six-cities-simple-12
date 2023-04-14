@@ -25,7 +25,6 @@ function Property(): JSX.Element {
   const currentOffer = useAppSelector((state) => state.currentOffer);
   const reviews = useAppSelector((state) => state.reviews);
   const similarOffers = useAppSelector((state) => state.nearOffers);
-  const location = useAppSelector((state) => state.city);
 
   useEffect(() => {
     dispatch(fetchCurrentOfferAction(currentOfferId));
@@ -158,7 +157,6 @@ function Property(): JSX.Element {
             className={'property'}
             offers={similarOffers.concat(currentOffer)}
             page={currentOffer}
-            location={location}
           />
         </section>
         <div className="container">

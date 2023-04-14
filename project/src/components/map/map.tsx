@@ -38,20 +38,18 @@ const currentCustomIcon = new Icon({
 
 type MapProps = {
   offers: OfferType[];
-  hoverCard?: OfferType | null;
   className: string;
+  hoverCard?: OfferType | null;
   page?: OfferType;
-  location: string;
 };
 
 function Map({
   className,
   offers,
-  location,
   hoverCard,
   page,
 }: MapProps): JSX.Element {
-  const cityLocation = offers.filter((offer) => location === offer.city.name)[0].city.location;
+  const cityLocation = offers[0].city.location;
   const mapRef = useRef(null);
   const map = useMap(mapRef, cityLocation);
 
@@ -67,8 +65,8 @@ function Map({
       const markerGroup = leaflet.layerGroup().addTo(map);
       offers.forEach((offer) => {
         const marker = leaflet.marker({
-          lat: offer.location?.latitude,
-          lng: offer.location?.longitude,
+          lat: offer.location.latitude,
+          lng: offer.location.longitude,
         });
 
         marker

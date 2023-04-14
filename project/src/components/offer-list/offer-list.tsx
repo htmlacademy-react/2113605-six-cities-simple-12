@@ -38,7 +38,6 @@ function OfferList({
           className={'cities'}
           offers={offers}
           hoverCard={hoverCard}
-          location={location}
         />
       </div>
     </div>
