@@ -41,17 +41,15 @@ type MapProps = {
   hoverCard?: OfferType | null;
   className: string;
   page?: OfferType;
-  location: string;
 };
 
 function Map({
   className,
   offers,
-  location,
   hoverCard,
   page,
 }: MapProps): JSX.Element {
-  const cityLocation = offers.filter((offer) => location === offer.city.name)[0].city.location;
+  const cityLocation = offers[0].city.location;
   const mapRef = useRef(null);
   const map = useMap(mapRef, cityLocation);
 

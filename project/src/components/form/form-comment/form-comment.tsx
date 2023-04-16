@@ -2,6 +2,8 @@ import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import RatingInput from '../rating-input/rating-input';
 import { addReviewAction } from '../../../store/api-actions';
+import { toast } from 'react-toastify';
+import { getLoadingStatus } from '../../../store/review-process/selector';
 
 function FormComment({ currentOffer }: { currentOffer: number }): JSX.Element {
   const [value, setValue] = useState('');
@@ -9,20 +11,28 @@ function FormComment({ currentOffer }: { currentOffer: number }): JSX.Element {
   const [isSubmit, setIsSubmit] = useState(false);
 
   const dispatch = useAppDispatch();
-  const setReviewLoading = useAppSelector((state) => state.isReviewLoading);
+  const isReviewLoading = useAppSelector(getLoadingStatus);
 
   const onChangeValue = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setValue(event.target.value);
   };
 
   const onChangeChecked = ({ target }: ChangeEvent<HTMLInputElement>) => {
+    const { log } = console;
+    log(target);
     if (target.name === 'rating') {
       setSelect(target.value);
     }
   };
 
   useEffect(() => {
-    setIsSubmit(select === '' || value.length < 50 || value.length > 300);
+    const checkInputValue = () => {
+      if (select === '' || value.length < 50 || value.length > 300) {
+        return true;
+      }
+      return false;
+    };
+    setIsSubmit(checkInputValue());
   }, [select, value.length]);
 
   const onClickSubmit = (evt: FormEvent) => {
@@ -36,6 +46,17 @@ function FormComment({ currentOffer }: { currentOffer: number }): JSX.Element {
         })
       );
     }
+
+    if (isReviewLoading === false) {
+      toast.warn('Что-то пошло не так...попробуйте снова!');
+    }
+
+    if (isReviewLoading) {
+      const currentStar = document.getElementById(`${select}-stars`);
+      (currentStar as HTMLInputElement).checked = false;
+      setSelect('');
+      setValue('');
+    }
   };
 
   return (
@@ -46,7 +67,7 @@ function FormComment({ currentOffer }: { currentOffer: number }): JSX.Element {
       <RatingInput
         select={select}
         onChangeChecked={onChangeChecked}
-        isDisabled={setReviewLoading}
+        isDisabled={!isReviewLoading}
       />
       <textarea
         className="reviews__textarea form__textarea"
@@ -67,7 +88,7 @@ function FormComment({ currentOffer }: { currentOffer: number }): JSX.Element {
           className="reviews__submit htmlForm__submit button"
           type="submit"
           onClick={onClickSubmit}
-          disabled={isSubmit || setReviewLoading}
+          disabled={isSubmit || !isReviewLoading}
         >
           Submit
         </button>

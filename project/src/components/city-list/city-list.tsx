@@ -1,12 +1,14 @@
 import { Cities } from '../../consts';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import cn from 'classnames';
-import { useAppSelector, useAppDispatch } from '../../hooks/redux';
-import { changeCity } from '../../store/action';
+import { useAppSelector } from '../../hooks/redux';
+import { getCity} from '../../store/filter-process/selector';
+import { changeCity} from '../../store/filter-process/filter-process';
 
 function CityList(): JSX.Element {
-  const dispatch = useAppDispatch();
-  const location = useAppSelector((state) => state.city);
+  const dispatch = useDispatch();
+  const location = useAppSelector(getCity);
 
   return (
     <div className="tabs">

@@ -10,11 +10,12 @@ import Layout from '../../components/layout/layout';
 import { LocationApp } from '../../consts';
 import browserHistory from '../../browser-history';
 import Loader from '../loader/loader';
+import {getOfferStatus} from '../../store/offer-process/selector';
 
 function App(): JSX.Element {
-  const isLoading = useAppSelector((state) => state.isLoading);
+  const isOfferLoading = useAppSelector(getOfferStatus);
 
-  if (isLoading) {
+  if (!isOfferLoading) {
     return (
       <Loader />
     );
