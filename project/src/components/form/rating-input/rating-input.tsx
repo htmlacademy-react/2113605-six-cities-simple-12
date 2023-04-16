@@ -9,7 +9,7 @@ type RatingDataType = {
 type RatingInputType = {
   select: string;
   isDisabled: boolean;
-  onChangeChecked: ({ target }: ChangeEvent<HTMLInputElement>) => void;
+  onChecked: ({ target }: ChangeEvent<HTMLInputElement>) => void;
 };
 
 const ratingData: RatingDataType[] = [
@@ -41,14 +41,14 @@ const ratingData: RatingDataType[] = [
 ];
 
 function RatingInput({
-  onChangeChecked,
+  onChecked,
   select,
   isDisabled,
 }: RatingInputType): JSX.Element {
   return (
     <div
       className="reviews__rating-form form__rating"
-      onChange={onChangeChecked}
+      onChange={onChecked}
     >
       {ratingData.map(({ id, value, title }) => (
         <Fragment key={id}>

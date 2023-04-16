@@ -28,7 +28,7 @@ function App(): JSX.Element {
             <Route index element={<MainPage />} />
             <Route path={LocationApp.Login} element={<LoginScreen />} />
             <Route path={`${LocationApp.Offer}:id`} element={<Property />} />
-            <Route path="*" element={<NotFound />} />
+            <Route path={LocationApp.notFound} element={<NotFound />} />
           </Route>
         </Routes>
       </HistoryRouter>

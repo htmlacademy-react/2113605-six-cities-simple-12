@@ -38,8 +38,8 @@ const currentCustomIcon = new Icon({
 
 type MapProps = {
   offers: OfferType[];
-  hoverCard?: OfferType | null;
   className: string;
+  hoverCard?: OfferType | null;
   page?: OfferType;
 };
 
@@ -65,8 +65,8 @@ function Map({
       const markerGroup = leaflet.layerGroup().addTo(map);
       offers.forEach((offer) => {
         const marker = leaflet.marker({
-          lat: offer.location?.latitude,
-          lng: offer.location?.longitude,
+          lat: offer.location.latitude,
+          lng: offer.location.longitude,
         });
 
         marker
