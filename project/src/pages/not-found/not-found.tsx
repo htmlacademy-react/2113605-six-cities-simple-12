@@ -10,7 +10,7 @@ function NotFound() {
           <p>
             Настоятельно рекомендую вернуться
             <Link to={LocationApp.Main}>
-              <b>на главную страницу!</b>
+              <b> на главную страницу!</b>
             </Link>
           </p>
         </section>

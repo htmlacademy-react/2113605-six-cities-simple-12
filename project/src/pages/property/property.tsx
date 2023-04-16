@@ -7,6 +7,9 @@ import {
   fetchCurrentOfferAction,
   fetchReviewsAction,
 } from '../../store/api-actions';
+import { getCurrentOffer, getLoadingCurrentOffer, getNearOffers } from '../../store/offer-process/selector';
+import { getAuthStatus } from '../../store/user-process/selector';
+import { getReviews } from '../../store/review-process/selector';
 import OfferList from '../../components/offer-list/offer-list';
 import ReviewsList from '../../components/reviews/reviews-list';
 import PropertyGalleryImg from '../../components/property-gallery-img/property-gallery-img';
@@ -20,11 +23,11 @@ function Property(): JSX.Element {
   const { id } = useParams();
   const currentOfferId = Number(id);
   const dispatch = useAppDispatch();
-  const authStatus = useAppSelector((state) => state.authorizationStatus);
-  const isOfferLoading = useAppSelector((state) => state.isOfferLoading);
-  const currentOffer = useAppSelector((state) => state.currentOffer);
-  const reviews = useAppSelector((state) => state.reviews);
-  const similarOffers = useAppSelector((state) => state.nearOffers);
+  const authStatus = useAppSelector(getAuthStatus);
+  const isOfferLoading = useAppSelector(getLoadingCurrentOffer);
+  const currentOffer = useAppSelector(getCurrentOffer);
+  const reviews = useAppSelector(getReviews);
+  const similarOffers = useAppSelector(getNearOffers);
 
   useEffect(() => {
     dispatch(fetchCurrentOfferAction(currentOfferId));
@@ -50,7 +53,7 @@ function Property(): JSX.Element {
     description,
   } = currentOffer;
 
-  if (isOfferLoading) {
+  if (!isOfferLoading) {
     return <Loader />;
   }
 

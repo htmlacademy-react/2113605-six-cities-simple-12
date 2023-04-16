@@ -9,20 +9,17 @@ export const getActualOffers = (
 export const getPercent = (val: number) => `${String(Math.round(val) / 0.05)}`;
 
 export const getSortingOffers = (
-  city: string,
   offers: OfferType[],
   sortType = DEFAULT_SORT
 ) => {
-  const offersByLocation = getActualOffers(city, offers);
-
   switch (sortType) {
     case SortType.LowPrice:
-      return offersByLocation.sort((a, b) => a.price - b.price);
+      return offers.slice().sort((a, b) => a.price - b.price);
     case SortType.HightPrice:
-      return offersByLocation.sort((b, a) => a.price - b.price);
+      return offers.slice().sort((b, a) => a.price - b.price);
     case SortType.Rating:
-      return offersByLocation.sort((b, a) => a.rating - b.rating);
+      return offers.slice().sort((b, a) => a.rating - b.rating);
     default:
-      return offersByLocation;
+      return offers;
   }
 };

@@ -1,7 +1,8 @@
 import { useAppSelector } from '../../hooks/redux';
+import { getCity } from '../../store/filter-process/selector';
 
 function MainEmpty(): JSX.Element {
-  const location = useAppSelector((state) => state.city);
+  const location = useAppSelector(getCity);
   return (
     <div className="cities__places-container cities__places-container--empty container">
       <section className="cities__no-places">
