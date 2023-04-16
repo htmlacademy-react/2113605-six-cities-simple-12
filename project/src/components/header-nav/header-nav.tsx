@@ -2,10 +2,11 @@ import { Link } from 'react-router-dom';
 import { AuthorizationStatus, LocationApp } from '../../consts';
 import { useAppSelector, useAppDispatch } from '../../hooks/redux';
 import { logOutAction } from '../../store/api-actions';
+import { getAuthStatus, getUserData } from '../../store/user-process/selector';
 
 function HeaderNav(): JSX.Element {
-  const authStatus = useAppSelector((state) => state.authorizationStatus);
-  const userData = useAppSelector((state) => state.userData);
+  const authStatus = useAppSelector(getAuthStatus);
+  const userData = useAppSelector(getUserData);
   const dispatch = useAppDispatch();
 
   return (

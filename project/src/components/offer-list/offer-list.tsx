@@ -4,6 +4,8 @@ import { OfferType } from '../../types';
 import SortOptions from '../sort-options/sort-options';
 import Map from '../map/map';
 import { useAppSelector } from '../../hooks/redux';
+import { getCity, getSortType } from '../../store/filter-process/selector';
+import {getSortingOffers} from '../../utils';
 
 function OfferList({
   offers,
@@ -13,7 +15,10 @@ function OfferList({
   isNear: boolean;
 }) {
   const [hoverCard, setHoverCard] = useState<OfferType | null>(null);
-  const location = useAppSelector((state) => state.city);
+  const location = useAppSelector(getCity);
+  const sortType = useAppSelector(getSortType);
+  const sortingOffers = getSortingOffers(offers, sortType);
+
   return !isNear ? (
     <div className="cities__places-container container">
       <section className="cities__places places">
@@ -23,7 +28,7 @@ function OfferList({
         </b>
         <SortOptions />
         <div className="cities__places-list places__list tabs__content">
-          {offers.map((item) => (
+          {sortingOffers.map((item) => (
             <Card
               key={item.id}
               className={'cities'}
@@ -38,7 +43,6 @@ function OfferList({
           className={'cities'}
           offers={offers}
           hoverCard={hoverCard}
-          location={location}
         />
       </div>
     </div>

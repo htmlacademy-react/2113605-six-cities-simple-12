@@ -4,4 +4,4 @@ import { State } from '../../types/process-state';
 
 export const getReviews = (state: State): ReviewType[] => state[NameSpace.Reviews].reviews;
 export const setReviews = (state: State): ReviewType[] => state[NameSpace.Reviews].reviews;
-export const getReviewsLoadingStatus = (state: State): boolean => state[NameSpace.Reviews].isReviewLoading;
+export const getLoadingStatus = (state: State): boolean => state[NameSpace.Reviews].isReviewLoading;

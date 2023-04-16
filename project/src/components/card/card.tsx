@@ -5,8 +5,8 @@ import { getPercent } from '../../utils';
 
 type CardType = {
   offer: OfferType;
-  onHoverCard?: (offer: OfferType | null) => void;
   className: string;
+  onHoverCard?: (offer: OfferType | null) => void;
 };
 
 function Card({ offer, onHoverCard, className }: CardType): JSX.Element {
