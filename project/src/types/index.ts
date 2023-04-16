@@ -1,8 +1,4 @@
-import { store } from '../store';
 import { Cities } from '../consts';
-
-export type State = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
 
 export type CityType = {
   location: LocationType;

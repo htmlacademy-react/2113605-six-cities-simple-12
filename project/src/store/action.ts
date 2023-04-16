@@ -13,11 +13,11 @@ export const changeSort = createAction(
 );
 
 export const loadOffers = createAction<OfferType[]>(
-  'data/loadOffers'
+  'offers/loadOffers'
 );
 
 export const loadCurrentOffer = createAction<OfferType>(
-  'data/loadCurrentOffer'
+  'offers/loadCurrentOffer'
 );
 
 export const loadReviews = createAction<ReviewType[]>(
@@ -50,7 +50,7 @@ export const redirect = createAction<LocationApp>(
 );
 
 export const loadNearOffers = createAction<OfferType[]>(
-  'data/loadNearOffers'
+  'offers/loadNearOffers'
 );
 
 export const setNewReview = createAction<ReviewType>(

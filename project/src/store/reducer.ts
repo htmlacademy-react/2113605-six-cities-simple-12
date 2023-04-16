@@ -80,5 +80,3 @@ const reducer = createReducer(initialState, (builder) => {
       state.nearOffers = action.payload;
     });
 });
-
-export { reducer };
