@@ -5,11 +5,12 @@ import { AuthDataType } from '../../types';
 import { loginAction } from '../../store/api-actions';
 import { LocationApp } from '../../consts';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { getCity } from '../../store/filter-process/selector';
 
 function Login(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
-  const location = useAppSelector((state) => state.city);
+  const location = useAppSelector(getCity);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
