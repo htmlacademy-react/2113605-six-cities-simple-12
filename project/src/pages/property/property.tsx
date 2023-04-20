@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import { Navigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import FormComment from '../../components/form/form-comment/form-comment';
 import {
@@ -7,13 +7,17 @@ import {
   fetchCurrentOfferAction,
   fetchReviewsAction,
 } from '../../store/api-actions';
-import { getCurrentOffer, getLoadingCurrentOffer, getNearOffers } from '../../store/offer-process/selector';
+import {
+  getCurrentOffer,
+  getLoadingCurrentOffer,
+  getNearOffers,
+} from '../../store/offer-process/selector';
 import { getAuthStatus } from '../../store/user-process/selector';
 import { getReviews } from '../../store/review-process/selector';
 import OfferList from '../../components/offer-list/offer-list';
 import ReviewsList from '../../components/reviews/reviews-list';
 import PropertyGalleryImg from '../../components/property-gallery-img/property-gallery-img';
-import { AuthorizationStatus, LocationApp } from '../../consts';
+import { AuthorizationStatus } from '../../consts';
 import Map from '../../components/map/map';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import Loader from '../../components/loader/loader';
@@ -35,8 +39,8 @@ function Property(): JSX.Element {
     dispatch(fetchNearOffersAction(currentOfferId));
   }, [dispatch, currentOfferId]);
 
-  if (!currentOffer) {
-    return <Navigate to={LocationApp.notFound} replace />;
+  if (currentOffer === null) {
+    return <Loader />;
   }
 
   const {
@@ -66,7 +70,7 @@ function Property(): JSX.Element {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              {images.map((url: string, index: number) => (
+              {images?.slice(0, 6).map((url: string, index: number) => (
                 <PropertyGalleryImg
                   key={String(url) + String(index)}
                   url={url}
