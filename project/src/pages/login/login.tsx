@@ -3,9 +3,10 @@ import { Helmet } from 'react-helmet-async';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthDataType } from '../../types';
 import { loginAction } from '../../store/api-actions';
-import { LocationApp } from '../../consts';
+import { LocationApp, AuthorizationStatus } from '../../consts';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { getCity } from '../../store/filter-process/selector';
+import { getAuthStatus } from '../../store/user-process/selector';
 
 function Login(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
@@ -13,6 +14,7 @@ function Login(): JSX.Element {
   const location = useAppSelector(getCity);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const authStatus = useAppSelector(getAuthStatus);
 
   const onSubmit = (authData: AuthDataType) => {
     dispatch(loginAction(authData));
@@ -26,7 +28,9 @@ function Login(): JSX.Element {
         login: loginRef.current.value,
         password: passwordRef.current.value,
       });
-      navigate(LocationApp.Main);
+      if (authStatus === AuthorizationStatus.Auth) {
+        navigate(LocationApp.Main);
+      }
     }
   };
 

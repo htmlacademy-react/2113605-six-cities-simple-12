@@ -16,8 +16,8 @@ function Card({ offer, onHoverCard, className }: CardType): JSX.Element {
   return (
     <article
       className={`${className}__card place-card`}
-      onMouseEnter={() => onHoverCard && (onHoverCard(offer))}
-      onMouseLeave={() => onHoverCard && (onHoverCard(null))}
+      onMouseEnter={() => onHoverCard && onHoverCard(offer)}
+      onMouseLeave={() => onHoverCard && onHoverCard(null)}
     >
       {isPremium ?? (
         <div className="place-card__mark">
